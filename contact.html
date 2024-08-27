@@ -19,6 +19,9 @@
     </nav>
     <section>
         <h2>Get in Touch</h2>
+        <!-- Pesan sukses akan ditampilkan di sini -->
+        <p id="successMessage" style="display:none; color:green; font-weight:bold;">Pesan sudah terkirim!</p>
+        
         <form id="contactForm">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
@@ -36,7 +39,50 @@
         <p>&copy; 2024 My Website</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Mencegah pengiriman form default
+
+            // Validasi input form
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let message = document.getElementById("message").value.trim();
+            let valid = true;
+            let errorMessage = "";
+
+            if (name === "") {
+                valid = false;
+                errorMessage += "Name field is required.\n";
+            }
+
+            if (email === "") {
+                valid = false;
+                errorMessage += "Email field is required.\n";
+            } else if (!validateEmail(email)) {
+                valid = false;
+                errorMessage += "Please enter a valid email address.\n";
+            }
+
+            if (message === "") {
+                valid = false;
+                errorMessage += "Message field is required.\n";
+            }
+
+            if (!valid) {
+                alert(errorMessage);
+            } else {
+                // Jika validasi berhasil, tampilkan pesan sukses di atas form
+                document.getElementById("successMessage").style.display = "block";
+                // Reset form
+                document.getElementById("contactForm").reset();
+            }
+        });
+
+        // Fungsi untuk memvalidasi format email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email.toLowerCase());
+        }
+    </script>
 </body>
 </html>
-

@@ -30,7 +30,11 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     // Jika ada kesalahan, tampilkan pesan dan cegah form submit
     if (!valid) {
         alert(errorMessage);
-        event.preventDefault();
+    } else {
+        // Jika validasi berhasil, tampilkan pesan sukses
+        document.getElementById("successMessage").style.display = "block";
+        // Reset form
+        document.getElementById("contactForm").reset();
     }
 });
 
